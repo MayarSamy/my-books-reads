@@ -18,18 +18,6 @@ class BooksApp extends React.Component {
     })
   }
 
-  changingShelf (book, shelf) {
-    let ChangedBook = book
-    BooksAPI.update(ChangedBook, shelf).then(() => {
-      ChangedBook.shelf = shelf
-      let NewBooks = this.state.Books.filter((book) => book.id !== ChangedBook.id)
-      NewBooks.push(ChangedBook)
-      this.setState({
-        Books: NewBooks
-      })
-    })
-  }
-
   render() {
     return (
       <div>
@@ -47,7 +35,6 @@ class BooksApp extends React.Component {
                     <h2 className="bookshelf-title">Currently Reading</h2>
                     <BooksShelf
                       Books={this.state.Books.filter((Book) => Book.shelf === 'currentlyReading')}
-                      changingShelf={this.changingShelf}
                     />
                   </div>
 
@@ -55,7 +42,6 @@ class BooksApp extends React.Component {
                     <h2 className="bookshelf-title">Want to Read</h2>
                     <BooksShelf
                       Books={this.state.Books.filter((Book) => Book.shelf === 'wantToRead')}
-                      changingShelf={this.changingShelf}
                     />
                   </div>
 
@@ -63,7 +49,6 @@ class BooksApp extends React.Component {
                     <h2 className="bookshelf-title">Read</h2>
                     <BooksShelf
                       Books={this.state.Books.filter((Book) => Book.shelf === 'read')}
-                      changingShelf={this.changingShelf}
                     />
                   </div>
                 </div>
