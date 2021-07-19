@@ -7,19 +7,15 @@ import * as BooksAPI from './BooksAPI'
 class BooksShelf extends Component {
   static propTypes = {
     Books: PropTypes.array.isRequired,
-    changingShelf: PropTypes.func.isRequired
   }
 
-  changingShelf (Books, Book, shelf) {
-    let ChangedBook = Book
-    BooksAPI.update(ChangedBook, shelf).then(() => {
-      ChangedBook.shelf = shelf
-      let NewBooks = Books.filter((book) => book.id !== ChangedBook.id)
-      NewBooks.push(ChangedBook)
-      this.setState({
-        Books: NewBooks
+  changingShelf (Book, shelf) {
+    BooksAPI.get(Book.id).then((ChangedBook) => {
+      BooksAPI.update(ChangedBook, shelf).then(() => {
+        ChangedBook.shelf = shelf
+       
       })
-    })
+    })    
   }
 
   render() {
@@ -41,7 +37,7 @@ class BooksShelf extends Component {
                   ></div>
                   <div className="book-shelf-changer">
                     <select
-                      onChange={(e) => this.changingShelf(Books, Book, e.target.value)}
+                      onChange={(e) => this.changingShelf(Book, e.target.value)}
                       defaultValue={Book.shelf}
                     >
                       <option value="move" disabled>
