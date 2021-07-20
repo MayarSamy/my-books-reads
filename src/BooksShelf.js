@@ -2,19 +2,12 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
-
+import state from './App'
 
 class BooksShelf extends Component {
   static propTypes = {
     Books: PropTypes.array.isRequired,
-  }
-
-  changingShelf (Book, shelf) {
-    BooksAPI.get(Book.id).then((ChangedBook) => {
-      BooksAPI.update(ChangedBook, shelf).then(() => {
-        ChangedBook.shelf = shelf
-      })
-    })
+    changingShelf: PropTypes.func.isRequired,
   }
 
   render() {
@@ -36,7 +29,7 @@ class BooksShelf extends Component {
                   ></div>
                   <div className="book-shelf-changer">
                     <select
-                      onChange={(e) => this.changingShelf(Book, e.target.value)}
+                      onChange={(e) => this.props.changingShelf(Book, e.target.value)}
                       defaultValue={Book.shelf}
                     >
                       <option value="move" disabled>

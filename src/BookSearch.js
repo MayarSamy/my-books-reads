@@ -23,7 +23,13 @@ class BookSearch extends Component {
       this.setState(() => ({
         searchResult
       }))
-    }})
+    }
+    else {
+      this.setState(() => ({
+        searchResult : []
+      }))
+    }
+  })
     }
     else {
     this.setState(() => ({
@@ -41,7 +47,6 @@ class BookSearch extends Component {
 
   render() {
     const { query, searchResult } = this.state
-    console.log(searchResult)
     return (
       <div className="search-books">
         <div className="search-books-bar">
