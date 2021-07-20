@@ -10,14 +10,11 @@ class BooksApp extends React.Component {
     Books: []
   }
 
-  componentDidMount() {
-    BooksAPI.getAll().then((Books) => {
+  async componentDidMount() {
+    const Books =await BooksAPI.getAll();
       this.setState(() => ({
         Books
-      }))
-    })
-
-    
+      })) 
   }
 
   render() {
@@ -66,6 +63,3 @@ class BooksApp extends React.Component {
 }
 
 export default BooksApp
-{
-  /* <Route path="/search" render={({ history }) => <BookSearch Books={this.state.Books} />} /> */
-}

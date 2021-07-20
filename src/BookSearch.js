@@ -11,9 +11,10 @@ class BookSearch extends Component {
     searchResult: []
   }
 
-  booksearch() {
-    if(this.state.query != ''){
-    BooksAPI.search(this.state.query).then((searchResult) => {
+  booksearch(query) {
+    if(query != ''){
+    BooksAPI.search(query).then((searchResult) => {
+      if(!('error'in searchResult)){
       searchResult.map(res=> {
         if(!('shelf' in res)){
           res.shelf = 'none'
@@ -22,15 +23,20 @@ class BookSearch extends Component {
       this.setState(() => ({
         searchResult
       }))
-    })
+    }})
     }
+    else {
+    this.setState(() => ({
+      searchResult : []
+    }))
+  }
   }
 
   updateQuery = (query) => {
     this.setState(() => ({
-      query: query.trim(),
+      query: query
     }))
-    this.booksearch()
+    this.booksearch(query)
   }
 
   render() {

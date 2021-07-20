@@ -13,9 +13,8 @@ class BooksShelf extends Component {
     BooksAPI.get(Book.id).then((ChangedBook) => {
       BooksAPI.update(ChangedBook, shelf).then(() => {
         ChangedBook.shelf = shelf
-       
       })
-    })    
+    })
   }
 
   render() {
