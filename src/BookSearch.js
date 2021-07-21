@@ -8,7 +8,6 @@ class BookSearch extends Component {
 
   state = {
     query: '',
-    Books: this.props.Books,
     searchResult: []
   }
 
@@ -17,7 +16,14 @@ class BookSearch extends Component {
     BooksAPI.search(query).then((searchResult) => {
       if(!('error'in searchResult)){
       searchResult.map(res=> {
-
+        this.props.Books.map(Book => {
+          if(Books.id === res.id){
+            res.shelf = Book.shelf
+          }
+        })
+        if(!('shelf' in res)){
+          res.shelf = 'none'
+        }
         /*if (res.id in this.state.Books){
           res.shelf = Books[res.id].shelf
         }
@@ -25,13 +31,13 @@ class BookSearch extends Component {
           res.shelf = 'none'
         }*/ 
 
-        if(!('shelf' in res)){
-          res.shelf = 'none'
-        }
-        else {
-          res.shelf = Books[res.id].shelf
-        }
-      })
+        // if(!('shelf' in res)){
+        //   res.shelf = 'none'
+        // }
+      //   else {
+      //     res.shelf = Books[res.id].shelf
+      //   }
+       })
       this.setState(() => ({
         searchResult
       }))
