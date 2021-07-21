@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-//import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import BooksShelf from './BooksShelf'
 import * as BooksAPI from './BooksAPI'
@@ -12,7 +12,7 @@ class BookSearch extends Component {
   }
 
   booksearch(query) {
-    if(query !== ''){
+    if(query != ''){
     BooksAPI.search(query).then((searchResult) => {
       if(!('error'in searchResult)){
       searchResult.map(res=> {
