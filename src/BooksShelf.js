@@ -6,11 +6,11 @@ import * as BooksAPI from './BooksAPI'
 class BooksShelf extends Component {
   static propTypes = {
     Books: PropTypes.array.isRequired,
-    changingShelf: PropTypes.func.isRequired,
+    changingShelf: PropTypes.func.isRequired
   }
 
   render() {
-    const { Books, changingShelf} = this.props
+    const { Books, changingShelf } = this.props
     return (
       <div className="bookshelf-books">
         <ol className="books-grid">
@@ -18,14 +18,17 @@ class BooksShelf extends Component {
             <li key={Book.id}>
               <div className="book">
                 <div className="book-top">
-                  <div
-                    className="book-cover"
-                    style={{
-                      width: 128,
-                      height: 193,
-                      backgroundImage: `url(${Book.imageLinks.thumbnail})`
-                    }}
-                  ></div>
+                  {'imageLinks' in Book && (
+                    <div
+                      className="book-cover"
+                      style={{
+                        width: 128,
+                        height: 193,
+                        backgroundImage: `url(${Book.imageLinks.thumbnail})`
+                      }}
+                    ></div>
+                  )}
+
                   <div className="book-shelf-changer">
                     <select
                       onChange={(e) => changingShelf(Book, e.target.value)}
@@ -42,10 +45,12 @@ class BooksShelf extends Component {
                   </div>
                 </div>
                 <div className="book-title">{Book.title}</div>
-                {
-                Book.authors.map((author) => (
-                  <div className="book-authors"  key={Book.id.concat(author)}>{author}</div>
-                ))}
+                {'authors' in Book &&
+                  Book.authors.map((author) => (
+                    <div className="book-authors" key={Book.id.concat(author)}>
+                      {author}
+                    </div>
+                  ))}
               </div>
             </li>
           ))}

@@ -47,6 +47,7 @@ class BookSearch extends Component {
 
   render() {
     const { query, searchResult } = this.state
+   // const changingShelf = this.props
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -65,7 +66,9 @@ class BookSearch extends Component {
         <div className="search-books-results">
           <ol className="books-grid">
             {this.state.searchResult.length !== 0 &&
-              <BooksShelf Books={this.state.searchResult}/>
+              <BooksShelf Books={this.state.searchResult}
+              changingShelf= {this.props.changingShelf}
+              />
             }
 
           </ol>
