@@ -25,27 +25,6 @@ class BookSearch extends Component {
         else{
           res.shelf = 'none'
         }
-        /*this.props.Books.map(Book => {
-          if(Books.id === res.id){
-            res.shelf = Book.shelf
-          }
-        })*/
-        // if(!('shelf' in res)){
-        //   res.shelf = 'none'
-        // }
-        /*if (res.id in this.state.Books){
-          res.shelf = Books[res.id].shelf
-        }
-        else {
-          res.shelf = 'none'
-        }*/ 
-
-        // if(!('shelf' in res)){
-        //   res.shelf = 'none'
-        // }
-      //   else {
-      //     res.shelf = Books[res.id].shelf
-      //   }
        })
       this.setState(() => ({
         searchResult
