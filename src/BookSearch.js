@@ -16,14 +16,23 @@ class BookSearch extends Component {
     BooksAPI.search(query).then((searchResult) => {
       if(!('error'in searchResult)){
       searchResult.map(res=> {
-        this.props.Books.map(Book => {
+
+
+        const b = this.props.Books.filter((B) => B.id == res.id)
+        if (b.length !== 0 ) {
+          res.shelf = b.shelf
+        }
+        else{
+          res.shelf = 'none'
+        }
+        /*this.props.Books.map(Book => {
           if(Books.id === res.id){
             res.shelf = Book.shelf
           }
-        })
-        if(!('shelf' in res)){
-          res.shelf = 'none'
-        }
+        })*/
+        // if(!('shelf' in res)){
+        //   res.shelf = 'none'
+        // }
         /*if (res.id in this.state.Books){
           res.shelf = Books[res.id].shelf
         }
