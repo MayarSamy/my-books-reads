@@ -5,43 +5,39 @@ import BooksShelf from './BooksShelf'
 import * as BooksAPI from './BooksAPI'
 
 class BookSearch extends Component {
-
   state = {
     query: '',
     searchResult: []
   }
 
   booksearch(query, Books) {
-    if(query != ''){
-    BooksAPI.search(query).then((searchResult) => {
-      if(!('error'in searchResult)){
-      searchResult.map(res=> {
-
-
-        const b = this.props.Books.filter((B) => B.id == res.id)
-        if (b.length !== 0 ) {
-          res.shelf = b.shelf
+    if (query != '') {
+      BooksAPI.search(query).then((searchResult) => {
+        if (!('error' in searchResult)) {
+          searchResult.map((res) => {
+            const b = this.props.Books.find((B) => B.id == res.id)
+            //const b = this.props.Books.filter((B) => B.id == res.id)
+            if (b) {
+              res.shelf = b.shelf
+            } else {
+              res.shelf = 'none'
+            }
+            return res
+          })
+          this.setState(() => ({
+            searchResult
+          }))
+        } else {
+          this.setState(() => ({
+            searchResult: []
+          }))
         }
-        else{
-          res.shelf = 'none'
-        }
-       })
+      })
+    } else {
       this.setState(() => ({
-        searchResult
+        searchResult: []
       }))
     }
-    else {
-      this.setState(() => ({
-        searchResult : []
-      }))
-    }
-  })
-    }
-    else {
-    this.setState(() => ({
-      searchResult : []
-    }))
-  }
   }
 
   updateQuery = (query) => {
@@ -70,12 +66,12 @@ class BookSearch extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {this.state.searchResult.length !== 0 &&
-              <BooksShelf Books={this.state.searchResult}
-              changingShelf= {this.props.changingShelf}
+            {this.state.searchResult.length !== 0 && (
+              <BooksShelf
+                Books={this.state.searchResult}
+                changingShelf={this.props.changingShelf}
               />
-            }
-
+            )}
           </ol>
         </div>
       </div>
