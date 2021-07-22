@@ -10,11 +10,11 @@ class BookSearch extends Component {
     searchResult: []
   }
 
-  booksearch(query, Books) {
+  booksearch(query) {
     if (query != '') {
       BooksAPI.search(query).then((searchResult) => {
         if (!('error' in searchResult)) {
-          searchResult.map((res) => {
+          const search = searchResult.map((res) => {
             const b = this.props.Books.find((B) => B.id == res.id)
             //const b = this.props.Books.filter((B) => B.id == res.id)
             if (b) {
@@ -44,7 +44,7 @@ class BookSearch extends Component {
     this.setState(() => ({
       query: query
     }))
-    this.booksearch(query, this.props.Books)
+    this.booksearch(query)
   }
 
   render() {
